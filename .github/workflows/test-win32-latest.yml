@@ -1,8 +1,7 @@
 name: test-win32-latest
 
 on:
-  schedule:
-    - cron: '00 06 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
