@@ -1,6 +1,7 @@
 name: build-on-windows-msbuild-x64
 
 on:
+  workflow_dispatch:
   push:
   pull_request:
     branches: [ master ]
