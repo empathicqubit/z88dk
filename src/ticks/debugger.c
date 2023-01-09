@@ -224,7 +224,7 @@ void ctrl_c_handler(int signum) {
 }
 
 void debugger_init() {
-#ifdef _WIN32
+#ifdef _MSC_VER
 			struct WSAData wsa;
 			int ret = WSAStartup(MAKEWORD(2, 2), &wsa);
 			if (ret) {
@@ -1101,7 +1101,7 @@ static int parse_number(char *str, char **end)
     if ( *str == '$' ) {
         base = 16;
         str++;
-    } 
+    }
     return strtol(str, end, base);
 }
 
@@ -1148,7 +1148,7 @@ static int cmd_stack(int argc, char **argv)
 }
 
 
-/* Parse an address operand. 
+/* Parse an address operand.
  *
  * It may be one of:
  * 1. A number address
@@ -1181,7 +1181,7 @@ const char *resolve_to_label(int addr)
 {
     static char tbuf[1024];
     const char *sym;
-    
+
     if ( (sym = find_symbol(addr, SYM_ADDRESS) ) != NULL ) {
         return sym;
     }
@@ -1248,7 +1248,7 @@ static int cmd_disassemble(int argc, char **argv)
 
 
 
-static int cmd_registers(int argc, char **argv) 
+static int cmd_registers(int argc, char **argv)
 {
     bk.invalidate();
     const unsigned short pc = bk.pc();
@@ -1331,7 +1331,7 @@ static int cmd_watch(int argc, char **argv)
                 bk.console("%d:\t(read) @$%04x (%s) %s\n",i, elem->value,resolve_to_label(elem->value), elem->enabled ? "" : " (disabled)");
             } else if ( elem->type == BREAK_WRITE) {
                 bk.console("%d:\t(write) @$%04x (%s) %s\n",i, elem->value,resolve_to_label(elem->value), elem->enabled ? "" : " (disabled)");
-            } 
+            }
             i++;
         }
 
@@ -1371,7 +1371,7 @@ static int cmd_watch(int argc, char **argv)
         } else {
             bk.console("Unknown watchpoint\n");
         }
-    } 
+    }
     return 0;
 }
 
@@ -1559,7 +1559,7 @@ static int cmd_examine(int argc, char **argv)
         uint8_t b = bk.get_memory(addr);
         abuf[i % 16] = isprint(b) ? ((char) b) : '.';   // Prepare end of dump in ASCII format
 
-        if ( i % 16 == 0 ) {                            // Handle line prefix 
+        if ( i % 16 == 0 ) {                            // Handle line prefix
             if (interact_with_tty) {
                 bk.console(FNT_CLR"%04X"FNT_RST":   ", addr);
             } else {
@@ -1844,7 +1844,7 @@ static int cmd_list(int argc, char **argv)
         return 0;
     }
     srcfile_display(filename, lineno - 5, 10, lineno);
-    
+
     return 0;
 }
 
